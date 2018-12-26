@@ -27,6 +27,7 @@ class Player {
         this._isInBack = false;
         this._isOffline = false;
         this._disconnectTime = undefined;
+        this._friendId = data.friendId;
         this._state.addState(PlayerState.disconnect, () => {
             console.log('掉线');
             this._disconnectTime = new Date().getTime();
@@ -37,6 +38,7 @@ class Player {
         });
       
         this._state.addState(PlayerState.loginSuccess, () => {
+            this._isOffline = false;
             let data = {
                 score: this._score,
                 id: this.id
@@ -55,13 +57,15 @@ class Player {
         });
         this._state.addState(PlayerState.gameing, () => {
             console.log('进入前台');
+            this._isOffline = false;
             if (this._room) {
                 this._room.syncPlayerInfo();
             }
         });
         this._state.addState(PlayerState.isMatching, () => {
             console.log('玩家开始匹配');
-            this._controller.playerMatching(this);
+            this._isOffline = false;
+            this._controller.playerMatching(this, this._friendId);
         });
         db.getPlayerScore(this.avatarUrl, (err, data) => {
             if (err == null && data !== null) {
@@ -77,9 +81,10 @@ class Player {
         //获取 掉线的时间 点
         return this._disconnectTime;   
     }
-    reConnect(socket) {
+    reConnect(socket, data) {
         this._isOffline = false;
         this._isInBack = false;
+        this._friendId = data.friendId;
         //如果是重新连接进来的 ，那么重新监听这些消息
         console.log('玩家又连接上了');
         this._socket = socket;

@@ -48,9 +48,6 @@ class Head extends Layer {
 
         this._colorPiece = new Sprite(global.resource[resources.piece_black].texture);
         this.addChild(this._colorPiece);
-
-        this._colorPiece.scale.set(2);
-
         this._rankLabel = new Label('', { fontSize: 30 });
         this.addChild(this._rankLabel);
 
@@ -85,13 +82,12 @@ class Head extends Layer {
         // this._scoreLabel.text = this._type == "left" ? '分:' + data.score : data.score + ":分";
         this._scoreLabel.text = '分:' + data.score;
         // this._rankLabel.visible = data.rankNum < 100?true:false;
-        this._rankLabel.visible = true;
+        this._rankLabel.visible = false;
 
         this._rankLabel.text = '排行:' + (data.rankNum + 1);
         this._nickNameLabel.text = data.nickName;
         let avatarUrl = data.avatarUrl;
         this._colorPiece.texture = global.resource[data.pieceColor == 'black' ? resources.piece_black : resources.piece_white].texture;
-        this._colorPiece.scale.set(2);
         this._colorPiece.position = {
             x: type == 'left' ? 170 : -30,
             y: 120
@@ -130,8 +126,6 @@ class Head extends Layer {
             this._wifiLogo.alpha = isOnline && !enterBack ? 1 : 0.3;
 
         }
-    }
-    playerEnterBack(playerId, value) {
     }
 }
 export default Head;

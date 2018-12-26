@@ -33,6 +33,8 @@ class Director {
             view: canvas,
             width: width,
             height: height
+            // ,
+            // resolution: pixelRatio
         });
       
         this.app.renderer.autoResize = true;

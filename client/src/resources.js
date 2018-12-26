@@ -1,9 +1,11 @@
 const res = 
 {
   "bg": "./images/bg.jpg",
+  "board_bg": "./images/board_bg.png",
   "cancel_share_button": "./images/cancel_share_button.png",
   "denglu_button": "./images/denglu_button.png",
   "head_image_kuang": "./images/head_image_kuang.png",
+  "health_tips": "./images/health_tips.jpg",
   "leave_room": "./images/leave_room.png",
   "login_button": "./images/login_button.png",
   "matching_title": "./images/matching_title.png",

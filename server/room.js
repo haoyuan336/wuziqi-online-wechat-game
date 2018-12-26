@@ -78,7 +78,7 @@ class Room {
             data.push({
                 id: this._playerList[i].id,
                 score: this._playerList[i].getScore(),
-                ranKNum: this._playerList[i].getRankNum(),
+                rankNum: this._playerList[i].getRankNum(),
                 avatarUrl: this._playerList[i].avatarUrl,
                 nickName: this._playerList[i].nickName,
                 pieceColor: this._playerList[i].getColor(),

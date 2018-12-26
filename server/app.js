@@ -41,28 +41,28 @@ class App {
         let playerId = data.id;
         console.log('player id = ' + playerId);
         // let roomId = data.roomId;
-        let friendId = data.friendId; //朋友的id
-        console.log('friend id = ' + friendId);
+        // let friendId = data.friendId; //朋友的id
+        // console.log('friend id = ' + friendId);
         let player = undefined;
         if (this._playerMap[playerId]) {
             console.log('存在此玩家');
             player = this._playerMap[playerId];
-            player.reConnect(socket);
+            player.reConnect(socket, data);
         } else {
             let id = this._idCreate.getNextID();
             player = new Player(socket, id, this, data);
             this._playerMap[id] = player;
         }
-        if (friendId) {
-            //如果存在好友id ，那么说明是被邀请进来的
-            //那么从玩家对象里面 获取到这个好友
-            let friend = this._playerMap[friendId];
-            if (friend && friend.isShareing()) {
-                console.log('这个好友正好也在 分享中 ，那么可以让他分享');
-                friend.getRoom().joinPlayer(player);
-            }
-        }
-        if(player){
+        // if (friendId) {
+        //     //如果存在好友id ，那么说明是被邀请进来的
+        //     //那么从玩家对象里面 获取到这个好友
+        //     let friend = this._playerMap[friendId];
+        //     if (friend && friend.isShareing()) {
+        //         console.log('这个好友正好也在 分享中 ，那么可以让他分享');
+        //         friend.getRoom().joinPlayer(player);
+        //     }
+        // }
+        if (player) {
             player.syncRankData(rank.getRankList());
         }
 
@@ -78,8 +78,19 @@ class App {
         // console.log('room id = ' + roomId);
     }
 
-    playerMatching(player) {
+    playerMatching(player, friendId) {
         console.log('匹配程序开始')
+
+        if (friendId) {
+            //如果存在好友id  那么返回
+            let friend = this._playerMap[friendId];
+            if (friend && friend.isShareing()) {
+                console.log('这个好友正好也在 分享中 ，那么可以让他分享');
+                friend.getRoom().joinPlayer(player);
+                return;
+            }
+        }
+
         for (let i = 0; i < this._waitMathingList.length; i++) {
             if (this._waitMathingList[i].id === player.id) {
                 console.log('如果匹配列表里面存在自己 则退出匹配')

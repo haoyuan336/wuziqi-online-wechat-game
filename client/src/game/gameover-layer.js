@@ -25,7 +25,6 @@ class GameOverLayer extends Layer {
         }
         let piece = new Sprite(global.resource[color == 'black' ? resources.piece_black : resources.piece_white].texture);
         this.addChild(piece);
-        piece.scale.set(2);
         piece.position = {
             x: 750 * 0.5,
             y: 600

@@ -10,18 +10,31 @@ class GameLayer extends Layer {
         let bg = new Sprite(global.resource[resources.bg].texture);
         this.addChild(bg);
         bg.anchor.set(0);
-        bg.scale.set(2);
+        bg.scale.y = 2;
+        
+        let boardBg = new Sprite(global.resource[resources.board_bg].texture);
+        this.addChild(boardBg);
+        boardBg.anchor.set(0.5);
+        boardBg.position = {
+            x: director.designSize.width * 0.5,
+            y: 730
+        }
+        
         this._headList = [];
         this._currentColorPiece = undefined;
         this._pieceList = [];
         this._piecePosList = [];
+        
         for (let i = 0; i < 13; i++) {
             for (let j = 0; j < 13; j++) {
-                let pos = new Vec2(62 + 52 * j, 52 * i + 418);
+                let pos = new Vec2(57 + 53 * j, 53 * i + 414);
                 if (i == 0 && j == 0) {
                     console.log('pos', pos);
                 }
                 this._piecePosList.push(pos);
+                // let piece = new Sprite(global.resource[resources.piece_black].texture);
+                // this.addChild(piece);
+                // piece.position = pos;
             }
         }
         this.interactive = true;
@@ -52,7 +65,6 @@ class GameLayer extends Layer {
         for (let i = 0; i < this._pieceList.length; i++) {
             this._pieceList[i].position = this._piecePosList[parseInt(data[i].index)];
             this._pieceList[i].texture = global.resource[data[i].color === 'black' ? resources.piece_black : resources.piece_white].texture;
-            this._pieceList[i].scale.set(2);
         }
     }
 
@@ -68,7 +80,6 @@ class GameLayer extends Layer {
                 y: 330
             }
         }
-        this._currentColorPiece.scale.set(2);
     }
     onTouchStart(event) {
         let data = event.data.getLocalPosition(this);
