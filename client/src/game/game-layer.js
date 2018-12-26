@@ -25,9 +25,9 @@ class GameLayer extends Layer {
         this._pieceList = [];
         this._piecePosList = [];
         
-        for (let i = 0; i < 13; i++) {
-            for (let j = 0; j < 13; j++) {
-                let pos = new Vec2(57 + 53 * j, 53 * i + 414);
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                let pos = new Vec2(57 + 70 * j, 70 * i + 414);
                 if (i == 0 && j == 0) {
                     console.log('pos', pos);
                 }
@@ -96,7 +96,7 @@ class GameLayer extends Layer {
         for (let i = 0; i < this._piecePosList.length; i++) {
             let pos = this._piecePosList[i];
             let dis = touchVec.distance(pos);
-            if (dis < 30) {
+            if (dis < 40) {
                 console.log('index = ', i);
                 //给服务器发消息
                 // choose-board

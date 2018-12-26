@@ -21,7 +21,7 @@ class Director {
         this.pixelRatio = pixelRatio;
         /* 根据需要 */
         PIXI.utils.isWebGLSupported = function () {
-            return true
+            return true;
         }
         // PIXI.interaction.InteractionManager.prototype.mapPositionToPoint = (point, x, y) => {
         //     point.x = x * pixelRatio
